@@ -1,7 +1,8 @@
 // TODO: Include packages needed for this application
-const inquirer = require('inquirer');
-const fs = require('fs');
-const generateMarkdown = require('./generateMarkdown')
+import fs from 'fs';
+import inquirer from 'inquirer';
+import {renderLicenseBadge, renderLicenseLink, renderLicenseSection, generateMarkdown} from './generateMarkdown.js';
+
 // TODO: Create an array of questions for user input
 const questions = [
     {
@@ -67,7 +68,10 @@ function init() {
     inquirer.prompt(questions)
     .then(function(userInput){
         console.log(userInput)
-        writeToFile(README.md, generateMarkdown(userInput));
+        fs.writeFile('README.md', generateMarkdown(userInput), function (err) {
+            if (err) return console.log(err);
+          
+    })
     })
 }
 
